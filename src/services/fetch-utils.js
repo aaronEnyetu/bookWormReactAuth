@@ -20,3 +20,11 @@ export async function signInUser(email, password) {
 export async function logout() {
   await client.auth.signOut();
 }
+
+// CREATE book function
+export async function addNewBook(book) {
+  const { data } = await client.from('Books')
+    .insert(book)
+    .single();
+  return data;
+}
