@@ -41,7 +41,7 @@ export async function getBooks() {
 }
 
 export async function updateBook(book, id) {
-  const { data, error } = await client
+  const { data } = await client
     .from('book')
     .update(book)
     .match({ id: id })
@@ -51,7 +51,7 @@ export async function updateBook(book, id) {
 }
   
 export async function deleteBook(id) {
-  const { data, error } = await client
+  const { data } = await client
     .from('book')
     .delete()
     .match({ id: id })
@@ -62,7 +62,7 @@ export async function deleteBook(id) {
   
   // parameter
 export async function getBookById(id) {
-  const { data, error } = await client
+  const { data } = await client
     .from('book')
     .select('*')
     .match({ id })
