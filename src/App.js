@@ -6,83 +6,75 @@ import {
   Link,
   Redirect
 } from 'react-router-dom';
-
-import './App.css';
-
 import AuthPage from './AuthPage';
 import ListPage from './ListPage';
-import DetailPage from './DetailPage';
 import CreatePage from './CreatePage';
 import UpdatePage from './UpdatePage';
 import { client } from './services/client';
 
+
+
+import './App.css';
 import { logout } from './services/fetch-utils';
 
-export default function App() {
-  const [user, setUser] = useState(client.auth.user());
 
-  async function handleLogout() {
-    await logout();
-    setUser('');
-  }
+export default function App() {
+  //when the user first comes to the site, go see if we already have a user logged in (living in session/local storage). that way we don't force a user to sign in if they were
+  const [user, setUser] = useState(client.auth.user());
+  
+
+
+  // async function handleLogoutClick() {
+  //   await logout();
+  //   setUser('');
+  //   history.push('/');
+  // }
 
   return (
     <Router>
       <div>
-        <nav>
+        {user &&
+        
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Sign in</Link>
             </li>
             <li>
-              <Link to="/CreateBook">Add New Book</Link>
+              <Link to="/create">Create new book</Link>
             </li>
             <li>
-              <Link to="/books">List Page</Link>
+              <Link to="/book/1">Update a book</Link>
             </li>
-            {
-              user && <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li> 
-            }
+            <li>
+              <Link to="/book">List of books</Link>
+            </li>
+            <li>
+              <button onClick={logout}>Logout</button>
+              
+            </li>
           </ul>
-        </nav>
+        }
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          {/* Route to Auth Page if NOT a user; 
-          if a user, redirect to /books */}
           <Route exact path="/">
             {
               !user
                 ? <AuthPage setUser={setUser} />
-                : <Redirect to="/books" />
+                : <Redirect to="/book" />
+              
             }
           </Route>
-          {/* User: Route to List Page; 
-          NOT a user, redirect to root/auth page */}
-          <Route exact path="/books">
-            {
-              user
-                ? <ListPage />
-                : <Redirect to="/" />
-            }
-          </Route>
-
-          <Route exact path="/books/:id">
-            <DetailPage />
-          </Route>
-
-          <Route exact path="/CreateBook">
-            <CreatePage />
-          </Route>
-
-          <Route exact path="/UpdatePage">
-            <UpdatePage />
-          </Route>
+          <Route exact path="/book" element={ListPage}/>
+           
+          <Route exact path="/create"><CreatePage/></Route> 
+            
+          <Route exact path="/book/:id" element={UpdatePage} />
+            
         </Switch>
       </div>
     </Router>
   );
 }
+

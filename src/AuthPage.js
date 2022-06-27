@@ -1,65 +1,66 @@
 import { useState } from 'react';
-import { signUpUser, signInUser } from './services/fetch-utils';
-import { useHistory } from 'react-router-dom';
-
+import { signIn, signUp } from './services/fetch-utils';
 
 export default function AuthPage({ setUser }) {
-  const [signUpEmail, setSignUpEmail] = useState('');
-  const [signUpPassword, setSignUpPassword] = useState('');
+    
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
 
-  const { push } = useHistory();
-
-  
-  async function handleSignUp(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    const user = await signUpUser(signUpEmail, signUpPassword);
-    setUser(user);
-    push('/books');
+    //use the email and password from the form to create a user in supabase
+    try {
+      const user = await signUp(email, password);
+      setUser(user);
+    } catch (e) {
+        //do this if it does not work
+      setError(e.message);
+    }
+    
   }
 
-  async function handleSignIn(e) {
+  async function handleSignInSubmit(e) {
     e.preventDefault();
+      //use the email and password from the form to create a user in supabase
+    const user = await signIn(signInEmail, signInPassword);
 
-    const user = await signInUser(signInEmail, signInPassword);
     setUser(user);
-    push('/books');
   }
-
   return (
-    <div>AuthPage
-      {/* Sign Up New User */}
-      <form onSubmit={handleSignUp}>
-        <label>Email
-          <input value={signUpEmail} 
-            onChange={(e) => setSignUpEmail(e.target.value)}
-            type='email' />
+    <div>
+      <h3>Book Worm: the app for avid readers</h3>
+      <h1 className='error'>{error}</h1>
+      <form onSubmit={handleSubmit}>
+        <p>Sign Up</p>
+        <label>
+                    email
+          <input onChange={e => setEmail(e.target.value)} value={email} type="email" />
         </label>
-        <label>Password
-          <input value={signUpPassword} 
-            onChange={(e) => setSignUpPassword(e.target.value)}
-            type='password' />
+        <label>
+                    password
+          <input onChange={e => setPassword(e.target.value)} value={password} type="password" />
         </label>
         <button>Sign Up</button>
       </form>
-
-      {/* Sign In Existing User */}
-      <form onSubmit={handleSignIn}>
-        <label>Email
-          <input value={signInEmail} 
-            onChange={(e) => setSignInEmail(e.target.value)}
-            type='email' />
+      <form onSubmit={handleSignInSubmit}>
+        <p>Sign In</p>
+        <label>
+              email
+          <input onChange={e => setSignInEmail(e.target.value)} value={signInEmail} type="email" />
         </label>
-        <label>Password
-          <input value={signInPassword} 
-            onChange={(e) => setSignInPassword(e.target.value)}
-            type='password' />
+        <label>
+              password
+          <input onChange={e => setSignInPassword(e.target.value)} value={signInPassword} type="password" />
+
         </label>
         <button>Sign In</button>
       </form>
     </div>
+
   );
 }

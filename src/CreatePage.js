@@ -8,7 +8,7 @@ export default function CreatePage() {
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-//   const [genre, setGenre] = useState('');
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -16,31 +16,30 @@ export default function CreatePage() {
     await addNewBook({
       title: title,
       author: author,
-    //   genre: genre
+    
     });
     
-    push('/books');
+    
     setTitle('');
     setAuthor('');
-    // setGenre('');
+
+    push('/book');
+   
   }
 
   return (
-    <div>CreatePage
+    <div>
+      <h2>Create a book</h2>
       <form onSubmit={handleSubmit}>
-        <label> Title
-          <input value={title}
-            onChange={(e) => setTitle(e.target.value)} />
+        <label>
+          Title
+          <input onChange={e => setTitle(e.target.value)} value={title} />
         </label>
-        <label> Author
-          <input value={author}
-            onChange={(e) => setAuthor(e.target.value)} />
+        <label>
+          Author
+          <input onChange={e => setAuthor(e.target.value)} value={author} />
         </label>
-        {/* <label> Genre
-          <input value={genre}
-            onChange={(e) => setGenre(e.target.value)} />
-        </label> */}
-        <button>Submit</button>
+        <button>Create book</button>
       </form>
     </div>
   );
