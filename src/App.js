@@ -42,9 +42,7 @@ export default function App() {
             <li>
               <Link to="/create">Create new book</Link>
             </li>
-            {/* <li>
-              <Link to="/book/1">Update a book</Link>
-            </li> */}
+            {/* removed the update link */}
             <li>
               <Link to="/book">List of books</Link>
             </li>
