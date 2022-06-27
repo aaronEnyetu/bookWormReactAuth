@@ -42,9 +42,9 @@ export default function App() {
             <li>
               <Link to="/create">Create new book</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/book/1">Update a book</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/book">List of books</Link>
             </li>
@@ -70,7 +70,7 @@ export default function App() {
            
           <Route exact path="/create"><CreatePage/></Route> 
             
-          <Route exact path="/book/:id" element={UpdatePage} />
+          <Route exact path="/book/:id"><UpdatePage/></Route>
             
         </Switch>
       </div>

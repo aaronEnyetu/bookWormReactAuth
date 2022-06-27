@@ -39,3 +39,34 @@ export async function getBooks() {
   
   return data; 
 }
+
+export async function updateBook(book, id) {
+  const { data, error } = await client
+    .from('book')
+    .update(book)
+    .match({ id: id })
+    .single();
+  
+  return data;
+}
+  
+export async function deleteBook(id) {
+  const { data, error } = await client
+    .from('book')
+    .delete()
+    .match({ id: id })
+    .single();
+  
+  return data;
+}
+  
+  // parameter
+export async function getBookById(id) {
+  const { data, error } = await client
+    .from('book')
+    .select('*')
+    .match({ id })
+    .single();
+  
+  return data; 
+}
