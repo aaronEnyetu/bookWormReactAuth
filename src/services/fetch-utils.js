@@ -31,3 +31,11 @@ export async function addNewBook(book) {
     .single();
   return data;
 }
+
+export async function getBooks() {
+  const { data } = await client
+    .from('book')
+    .select('*');
+  
+  return data; 
+}
