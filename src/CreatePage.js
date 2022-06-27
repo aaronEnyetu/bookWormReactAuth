@@ -14,12 +14,12 @@ export default function CreatePage() {
     e.preventDefault();
     
 
-    const book = await addNewBook({
+    await addNewBook({
       title: title,
       author: author,
     
     });
-    console.log(book);
+    
     
     setTitle('');
     setAuthor('');

@@ -15,8 +15,6 @@ export default function UpdatePage() {
       // argument
       const book = await getBookById(id);
 
-      console.log(book);
-
       setTitle(book.title);
       setAuthor(book.author);
     }
