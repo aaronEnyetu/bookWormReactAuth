@@ -12,6 +12,8 @@ import CreatePage from './CreatePage';
 import UpdatePage from './UpdatePage';
 import { client } from './services/client';
 
+import GroupOrientation from './ButtonGroup';
+
 
 
 import './App.css';

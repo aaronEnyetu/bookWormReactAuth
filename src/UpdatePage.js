@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { deleteBook, getBookById, updateBook } from './services/fetch-utils';
 import { useHistory, useParams } from 'react-router-dom';
 
+import IconLabelButtons from './CustomButton';
+
 export default function UpdatePage() {
   const { push } = useHistory();
   const { id } = useParams();
@@ -59,8 +61,8 @@ export default function UpdatePage() {
         </label>
         <button>Update book</button>
       </form>
-      <button 
-        onClick={handleDeleteBook} className='delete-button'>Delete book</button>
+      <IconLabelButtons 
+        onClick={handleDeleteBook} >Delete book</IconLabelButtons>
     </div>
   );
 }
