@@ -4,6 +4,10 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import IconLabelButtons from './CustomButton';
 
+import BasicButtons from './UpdateButton';
+
+
+
 export default function UpdatePage() {
   const { push } = useHistory();
   const { id } = useParams();
@@ -47,6 +51,7 @@ export default function UpdatePage() {
     push('/book');
   }
 
+
   return (
     <div>
       <h2>Update a book</h2>
@@ -59,7 +64,7 @@ export default function UpdatePage() {
           Author
           <input onChange={e => setAuthor(e.target.value)} value={author} />
         </label>
-        <button>Update book</button>
+        <BasicButtons onClick={handleSubmit}>Update book</BasicButtons>
       </form>
       <IconLabelButtons 
         onClick={handleDeleteBook} >Delete book</IconLabelButtons>
